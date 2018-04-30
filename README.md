@@ -1,4 +1,4 @@
-### More Code and Details Coming Shortly
+# More Info and Code Coming Shortly
 
 #Code for our work "Learning Joint Embedding with Multimodal Cues for Cross-Modal Video-Text Retrieval", 
 
@@ -17,10 +17,7 @@
 # Reference 
 If you use our code or models, please cite the following paper:
 
-@article{mithun2018learning,
-  title={Learning Joint Embedding with Multimodal Cues for Cross-Modal Video-Text Retrieval},
-  author={Mithun, Niluthpol Chowdhury and Li, Juncheng and Metze, Florian and Roy-Chowdhury, Amit K},
-  year={2018}
-}
+@article{mithun2018learning, 
+title={Learning Joint Embedding with Multimodal Cues for Cross-Modal Video-Text Retrieval}, author={Mithun, Niluthpol Chowdhury and Li, Juncheng and Metze, Florian and Roy-Chowdhury, Amit K}, year={2018}}
 
-# Contact: Niluthpol C Mithun (nmith001@ucr.edu)
+> Contact: Niluthpol C Mithun (nmith001@ucr.edu)
