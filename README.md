@@ -19,5 +19,3 @@ If you use our code or models, please cite the following paper:
 }
 
 -- Contact: Niluthpol C Mithun (nmith001@ucr.edu)
-
-### More Details and Code Coming Shortly
