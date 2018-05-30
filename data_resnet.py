@@ -91,8 +91,8 @@ def get_loaders(data_name, vocab, crop_size, batch_size, workers, opt):
     dpath = os.path.join(opt.data_path, data_name)
     if opt.data_name.endswith('vtt'):
 
-        train_caption_pkl_path = dpath+'/captions_pkl_vocab_coco/msr-vtt_captions_train.pkl'
-        val_caption_pkl_path = dpath+'/captions_pkl_vocab_coco/msr-vtt_captions_val.pkl'
+        train_caption_pkl_path = dpath+'/captions_pkl/msr-vtt_captions_train.pkl'
+        val_caption_pkl_path = dpath+'/captions_pkl/msr-vtt_captions_val.pkl'
         feature_path='/hdd2/niluthpol/VTT/MSR_VTT/resnet_feat_caffe_all/'
         train_loader = get_vtt_loader(train_caption_pkl_path, feature_path, opt, batch_size, True, workers)
         val_loader = get_vtt_loader(val_caption_pkl_path, feature_path, opt, batch_size, False, workers)
@@ -104,7 +104,7 @@ def get_test_loader(split_name, data_name, vocab, crop_size, batch_size,
                     workers, opt):
     dpath = os.path.join(opt.data_path, data_name)		 
     if opt.data_name.endswith('vtt'):
-        test_caption_pkl_path = dpath+'/captions_pkl_vocab_coco/msr-vtt_captions_'+split_name+'.pkl'	
+        test_caption_pkl_path = dpath+'/captions_pkl/msr-vtt_captions_'+split_name+'.pkl'	
         feature_path='/hdd2/niluthpol/VTT/MSR_VTT/resnet_feat_caffe_all/'
         test_loader = get_vtt_loader(test_caption_pkl_path, feature_path, opt, batch_size, True, workers)
 
