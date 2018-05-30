@@ -2,8 +2,8 @@ from vocab import Vocabulary
 import evaluation
 import numpy
 
-DATA_PATH = '/hdd2/mithun/VTT/vsepp_data/'
-RUN_PATH = '/home/niluthpo/VTT/multimodal_vtt/models/'
+DATA_PATH = '/hdd2/niluthpol/VTT/vsepp_data/'
+RUN_PATH = '/home/niluthpol/VTT/models/'
 
 shared_space = 'both' # help='both'|'object_text'|'activity_text' ;  default = 'both'
 
