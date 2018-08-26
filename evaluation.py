@@ -134,7 +134,7 @@ def evalrank(model_path1, model_path2, data_path=None, split='dev', fold5=False,
     opt.vocab_path = "./vocab/"
     # load vocabulary used by the model				   
     vocab = pickle.load(open(os.path.join(
-        opt.vocab_path, 'coco_vocab.pkl'), 'rb'))
+        opt.vocab_path, 'vocab.pkl'), 'rb'))
         
     opt.vocab_size = len(vocab)
 
@@ -161,7 +161,7 @@ def evalrank(model_path1, model_path2, data_path=None, split='dev', fold5=False,
     opt.vocab_path = "./vocab/"
     # load vocabulary used by the model			   
     vocab = pickle.load(open(os.path.join(
-        opt.vocab_path, 'coco_vocab.pkl'), 'rb'))
+        opt.vocab_path, 'vocab.pkl'), 'rb'))
         
     opt.vocab_size = len(vocab)
 
