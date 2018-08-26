@@ -1,4 +1,4 @@
-# Training Code Adopted from PyTorch Code for "VSE++: Improving Visual-Semantic Embeddings with Hard Negatives"
+# Training Code Adapted from PyTorch Code for "VSE++: Improving Visual-Semantic Embeddings with Hard Negatives"
 import pickle
 import os
 import time
