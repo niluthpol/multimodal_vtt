@@ -60,8 +60,6 @@ def main():
                         help='Use max instead of sum in the rank loss.')
     parser.add_argument('--img_dim', default=2048, type=int,
                         help='Dimensionality of the image embedding.')
-    parser.add_argument('--finetune', action='store_true',
-                        help='Fine-tune the image encoder.')
     parser.add_argument('--measure', default='cosine',
                         help='Similarity measure used (cosine|order)')
     parser.add_argument('--use_abs', action='store_true',
