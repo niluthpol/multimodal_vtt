@@ -28,6 +28,10 @@ If you use our code or models, please cite the following paper:
   organization={ACM}
 }
 
-This code is built on top of VSE++(https://github.com/fartashf/vsepp)
+
+
+--This code is built on top of VSE++(https://github.com/fartashf/vsepp)
+
+
 
 -- Contact: Niluthpol Chowdhury Mithun (nmith001@ucr.edu)
