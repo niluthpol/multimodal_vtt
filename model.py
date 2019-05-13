@@ -161,7 +161,7 @@ class Loss(nn.Module):
         rank_weights2 = id2.float()
 		
         for k in range(d2.size(0)):
-            rank_weights2[j]=1/(rank_weights2[j]+1)	
+            rank_weights2[k]=1/(rank_weights2[k]+1)	
 			
         # compare every diagonal score to scores in its column
         # caption retrieval
