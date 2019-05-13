@@ -17,7 +17,6 @@ def l2norm(X):
     X = X / norm[:,None]
     return X
 
-
 # We consider Image feature is precomputed
 class EncoderImage(nn.Module):
 
@@ -42,7 +41,6 @@ class EncoderImage(nn.Module):
     def forward(self, images):
         """Extract image feature vectors."""
         # assuming that the precomputed features are already l2-normalized
-
         features = self.fc(images)
 
         # normalize in the joint embedding space
@@ -133,9 +131,8 @@ def order_sim(im, s):
 
 class Loss(nn.Module):
     """
-    Compute contrastive loss
+    Compute loss
     """
-
     def __init__(self, margin=0, measure=False, max_violation=False):
         super(Loss, self).__init__()
         self.margin = margin
@@ -149,19 +146,19 @@ class Loss(nn.Module):
         d1 = diagonal.expand_as(scores)
         d2 = diagonal.t().expand_as(scores)	
 		
-        d1_sort, d1_indice=torch.sort(scores)
+        d1_sort, d1_indice=torch.sort(scores,dim=1,descending=True)
         val, id1 = torch.min(d1_indice,1)
         rank_weights1 = id1.float()
 		
 	for j in range(d1.size(0)):
-            rank_weights1[j]=1+torch.tensor(1)/(1+(d1_indice[j,:]==j).nonzero()).to(dtype=torch.float)
+            rank_weights1[j]=1+torch.tensor(1)/(d1.size(0)-(d1_indice[j,:]==j).nonzero()).to(dtype=torch.float)
 		
-        d2_sort, d2_indice=torch.sort(scores.t())
+        d2_sort, d2_indice=torch.sort(scores.t(),dim=1,descending=True)
         val, id2 = torch.min(d2_indice,1)
         rank_weights2 = id2.float()
 		
         for k in range(d2.size(0)):
-            rank_weights2[k]=1+torch.tensor(1)/(1+(d2_indice[k,:]==k).nonzero()).to(dtype=torch.float)	
+            rank_weights2[k]=1+torch.tensor(1)/(d2.size(0)-(d2_indice[k,:]==k).nonzero()).to(dtype=torch.float)
 			
         # compare every diagonal score to scores in its column
         # caption retrieval
@@ -187,7 +184,6 @@ class Loss(nn.Module):
         cost_im= torch.mul(rank_weights2, cost_im)
 
         return cost_s.sum() + cost_im.sum()
-
 
 		
 class VSE(object):
