@@ -154,14 +154,14 @@ class Loss(nn.Module):
         rank_weights1 = id1.float()
 		
 	for j in range(d1.size(0)):
-            rank_weights1[j]=1/(rank_weights1[j]+1)
+            rank_weights1[j]=1+torch.tensor(1)/(1+(d1_indice[j,:]==j).nonzero()).to(dtype=torch.float)
 		
         d2_sort, d2_indice=torch.sort(scores.t())
         val, id2 = torch.min(d2_indice,1)
         rank_weights2 = id2.float()
 		
         for k in range(d2.size(0)):
-            rank_weights2[k]=1/(rank_weights2[k]+1)	
+            rank_weights2[k]=1+torch.tensor(1)/(1+(d2_indice[k,:]==k).nonzero()).to(dtype=torch.float)	
 			
         # compare every diagonal score to scores in its column
         # caption retrieval
