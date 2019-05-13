@@ -138,6 +138,7 @@ class Loss(nn.Module):
         self.margin = margin
         self.sim = cosine_sim
         self.max_violation = max_violation
+        self.beta=1
 
     def forward(self, im, s):
         # compute image-sentence score matrix
@@ -151,14 +152,14 @@ class Loss(nn.Module):
         rank_weights1 = id1.float()
 		
 	for j in range(d1.size(0)):
-            rank_weights1[j]=1+torch.tensor(1)/(d1.size(0)-(d1_indice[j,:]==j).nonzero()).to(dtype=torch.float)
+            rank_weights1[j]=1+torch.tensor(self.beta)/(d1.size(0)-(d1_indice[j,:]==j).nonzero()).to(dtype=torch.float)
 		
         d2_sort, d2_indice=torch.sort(scores.t(),dim=1,descending=True)
         val, id2 = torch.min(d2_indice,1)
         rank_weights2 = id2.float()
 		
         for k in range(d2.size(0)):
-            rank_weights2[k]=1+torch.tensor(1)/(d2.size(0)-(d2_indice[k,:]==k).nonzero()).to(dtype=torch.float)
+            rank_weights2[k]=1+torch.tensor(self.beta)/(d2.size(0)-(d2_indice[k,:]==k).nonzero()).to(dtype=torch.float)
 			
         # compare every diagonal score to scores in its column
         # caption retrieval
@@ -286,7 +287,7 @@ class VSE(object):
         #print(img_emb)
         #print(cap_emb)
         loss = self.criterion(img_emb, cap_emb)
-        self.logger.update('Le', loss.data[0], img_emb.size(0))
+        self.logger.update('Le', loss.data, img_emb.size(0))
         return loss
 
     def train_emb(self, images, captions, lengths, ids=None, *args):
