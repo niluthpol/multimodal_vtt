@@ -1,6 +1,6 @@
 ### Learning Joint Embedding with Multimodal Cues for Cross-Modal Video-Text Retrieval 
 
-Code for the video-text retrieval methods from "Learning Joint Embedding with Multimodal Cues for Cross-Modal Video-Text Retrieval" (Mithun, Niluthpol C and Li, Juncheng and Metze, Florian and Roy-Chowdhury, Amit K) 2018
+Code to evaluate "Learning Joint Embedding with Multimodal Cues for Cross-Modal Video-Text Retrieval" (Mithun, Niluthpol C and Li, Juncheng and Metze, Florian and Roy-Chowdhury, Amit K) 2018
 
 ### Dependencies
 
@@ -29,9 +29,7 @@ If you use our code or models, please cite the following paper:
 }
 
 
-
 --This code is built on top of VSE++(https://github.com/fartashf/vsepp)
-
 
 
 -- Contact: Niluthpol Chowdhury Mithun (nmith001@ucr.edu)
