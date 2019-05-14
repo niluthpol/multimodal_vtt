@@ -7,7 +7,7 @@ Code for the video-text retrieval methods from "Learning Joint Embedding with Mu
 This code is written in python. The necessary packages are below:
 
 * Python 2.7
-* PyTorch (>0.3)
+* PyTorch (>0.4)
 * Tensorboard
 * NLTK Punkt Sentence Tokenizer
 
