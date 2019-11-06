@@ -29,7 +29,7 @@ If you use our code or models, please cite the following paper:
 }
 
 
---This code is built on top of VSE++(https://github.com/fartashf/vsepp)
+--Initial code borrowed heavily from VSE++(https://github.com/fartashf/vsepp)
 
 
 -- Contact: Niluthpol Chowdhury Mithun (nmith001@ucr.edu)
