@@ -9,7 +9,7 @@ import torch
 #import data_i3d_audio as data
 import data_resnet as data
 from vocab import Vocabulary  # NOQA
-from model_resnet_mean import VSE
+from model import VSE
 from evaluation import i2t, t2i, AverageMeter, LogCollector, encode_data
 
 import logging
