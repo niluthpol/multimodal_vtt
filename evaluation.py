@@ -292,3 +292,109 @@ def t2i(videos, captions, videos2, captions2, shared_space='both', measure='cosi
         return (r1, r5, r10, medr, meanr), (ranks, top1)
     else:
         return (r1, r5, r10, medr, meanr)
+
+
+def i2t_single(images, captions, npts=None, measure='cosine', return_ranks=False):
+    """
+    Images->Text (Image Annotation) ..
+    Images: (5N, K) matrix of images
+    Captions: (5N, K) matrix of captions
+    """
+	
+    print(images.shape)
+    print(captions.shape)
+	
+    if npts is None:
+        npts = images.shape[0] / 20
+    index_list = []
+    print(npts)
+	
+    ranks = numpy.zeros(npts)
+    top1 = numpy.zeros(npts)
+    for index in range(npts):
+
+        # Get query image
+        im = images[20 * index].reshape(1, images.shape[1])
+
+        # Compute scores
+        if measure == 'order':
+            bs = 100
+            if index % bs == 0:
+                mx = min(images.shape[0], 20 * (index + bs))
+                im2 = images[20 * index:mx:20]
+                d2 = order_sim(torch.Tensor(im2).cuda(),
+                               torch.Tensor(captions).cuda())
+                d2 = d2.cpu().numpy()
+            d = d2[index % bs]
+        else:
+            d = numpy.dot(im, captions.T).flatten()
+        inds = numpy.argsort(d)[::-1]
+        index_list.append(inds[0])
+	#print(inds)
+        # Score
+        rank = 1e20
+        for i in range(20 * index, 20 * index + 20, 1):
+            tmp = numpy.where(inds == i)[0][0]
+            if tmp < rank:
+                rank = tmp
+        ranks[index] = rank
+        top1[index] = inds[0]
+
+    # Compute metrics
+    r1 = 100.0 * len(numpy.where(ranks < 1)[0]) / len(ranks)
+    r5 = 100.0 * len(numpy.where(ranks < 5)[0]) / len(ranks)
+    r10 = 100.0 * len(numpy.where(ranks < 10)[0]) / len(ranks)
+    medr = numpy.floor(numpy.median(ranks)) + 1
+    meanr = ranks.mean() + 1
+    if return_ranks:
+        return (r1, r5, r10, medr, meanr), (ranks, top1)
+    else:
+        return (r1, r5, r10, medr, meanr)
+
+
+def t2i_single(images, captions, npts=None, measure='cosine', return_ranks=False):
+    """
+    Text->Images (Image Search)
+    Images: (5N, K) matrix of images
+    Captions: (5N, K) matrix of captions
+    """
+    if npts is None:
+        npts = images.shape[0] / 20
+    ims = numpy.array([images[i] for i in range(0, len(images), 20)])
+
+    ranks = numpy.zeros(20 * npts)
+    top1 = numpy.zeros(20 * npts)
+    for index in range(npts):
+
+        # Get query captions
+        queries = captions[20 * index:20 * index + 20]
+
+        # Compute scores
+        if measure == 'order':
+            bs = 100
+            if 20 * index % bs == 0:
+                mx = min(captions.shape[0], 20 * index + bs)
+                q2 = captions[20 * index:mx]
+                d2 = order_sim(torch.Tensor(ims).cuda(),
+                               torch.Tensor(q2).cuda())
+                d2 = d2.cpu().numpy()
+
+            d = d2[:, (20 * index) % bs:(20 * index) % bs + 20].T
+        else:
+            d = numpy.dot(queries, ims.T)
+        inds = numpy.zeros(d.shape)
+        for i in range(len(inds)):
+            inds[i] = numpy.argsort(d[i])[::-1]
+            ranks[20 * index + i] = numpy.where(inds[i] == index)[0][0]
+            top1[20 * index + i] = inds[i][0]
+
+    # Compute metrics
+    r1 = 100.0 * len(numpy.where(ranks < 1)[0]) / len(ranks)
+    r5 = 100.0 * len(numpy.where(ranks < 5)[0]) / len(ranks)
+    r10 = 100.0 * len(numpy.where(ranks < 10)[0]) / len(ranks)
+    medr = numpy.floor(numpy.median(ranks)) + 1
+    meanr = ranks.mean() + 1
+    if return_ranks:
+        return (r1, r5, r10, medr, meanr), (ranks, top1)
+    else:
+        return (r1, r5, r10, medr, meanr)
