@@ -10,7 +10,7 @@ import torch
 import data_resnet as data
 from vocab import Vocabulary  # NOQA
 from model import VSE
-from evaluation import i2t, t2i, AverageMeter, LogCollector, encode_data
+from evaluation import i2t_single, t2i_single, AverageMeter, LogCollector, encode_data
 
 import logging
 import tensorboard_logger as tb_logger
@@ -180,11 +180,11 @@ def validate(opt, val_loader, model):
         model, val_loader, opt.log_step, logging.info)
 
     # caption retrieval
-    (r1, r5, r10, medr, meanr) = i2t(img_embs, cap_embs, measure=opt.measure)
+    (r1, r5, r10, medr, meanr) = i2t_single(img_embs, cap_embs, measure=opt.measure)
     logging.info("Image to text: %.1f, %.1f, %.1f, %.1f, %.1f" %
                  (r1, r5, r10, medr, meanr))
     # image retrieval
-    (r1i, r5i, r10i, medri, meanr) = t2i(
+    (r1i, r5i, r10i, medri, meanr) = t2i_single(
         img_embs, cap_embs, measure=opt.measure)
     logging.info("Text to image: %.1f, %.1f, %.1f, %.1f, %.1f" %
                  (r1i, r5i, r10i, medri, meanr))
